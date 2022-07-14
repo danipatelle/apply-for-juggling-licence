@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Task list template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+
+<div class="govuk-phase-banner">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag">
+      alpha
+    </strong>
+    <span class="govuk- phase-banner__text">
+      This is a new service – your <a class="govuk-link" href="/feedback">feedback</a> will help us to improve it.
+    </span>
+  </p>
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">
+        Apply for a juggling licence
+      </h1>
+
+      {% if data['how-many-balls'] == "3 or more" and data['most-impressive-trick'] %}
+        <h2 class="govuk-heading-s govuk-!-margin-bottom-2">Application complete</h2>
+      {% else %}
+        <h2 class="govuk-heading-s govuk-!-margin-bottom-2">Application incomplete</h2>
+      {% endif %}
+      
+      {% if data['how-many-balls'] == "3 or more" and data['most-impressive-trick'] %}
+        <p class="govuk-body govuk-!-margin-bottom-7">You have completed 2 of 2 sections. <br> Check your answers and submit application.</p>
+      {% elseif data['how-many-balls'] == "3 or more" %}
+        <p class="govuk-body govuk-!-margin-bottom-7">You have completed 1 of 2 sections.</p>
+      {% else %}
+        <p class="govuk-body govuk-!-margin-bottom-7">You have completed 0 of 2 sections.</p>
+      {% endif %}
+
+
+      <ol class="app-task-list">
+
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">1. </span> Prepare application
+          </h2>
+          <ul class="app-task-list__items">
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="/juggling-balls" aria-describedby="how-many-balls">
+                  Check eligibility
+                </a>
+              </span>
+              {% if data['how-many-balls'] == "3 or more" %}
+                <strong class="govuk-tag app-task-list__tag" id="company-information-status">Completed</strong>
+              {% else %}
+                <strong class="govuk-tag app-task-list__tag govuk-tag--grey" id="company-information-status">Not started</strong>
+              {% endif %}
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">2. </span> Complete application
+          </h2>
+          <ul class="app-task-list__items">
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="/juggling-trick" aria-describedby="company-information-status">
+                  Confirm your most impressive juggling trick
+                </a>
+              </span>
+              {% if data['most-impressive-trick'] %}
+                <strong class="govuk-tag app-task-list__tag" id="company-information-status">Completed</strong>
+              {% else %}
+                <strong class="govuk-tag app-task-list__tag govuk-tag--grey" id="company-information-status">Not started</strong>
+              {% endif %}
+            </li>
+          </ul>
+        </li>
+
+
+          {% if data['how-many-balls'] == "3 or more" and data['most-impressive-trick'] %}
+            <a href="/check-answers" button class="govuk-button" data-module="govuk-button">
+              Check answers and submit application
+            </a>
+          {% else %}
+            <br>
+          {% endif %}
+
+
+      </ol>
+    </div>
+  </div>
+
+{% endblock %}
